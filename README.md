@@ -1,5 +1,11 @@
 # ShadowForm
 
+[![Gem Version](https://badge.fury.io/rb/shadow_form.svg)](http://badge.fury.io/rb/shadow_form)
+[![Build Status](https://travis-ci.org/pniemczyk/shadow_form.svg)](https://travis-ci.org/pniemczyk/shadow_form)
+[![Dependency Status](https://gemnasium.com/pniemczyk/shadow_form.svg)](https://gemnasium.com/pniemczyk/shadow_form)
+[![Code Climate](https://codeclimate.com/github/pniemczyk/shadow_form/badges/gpa.svg)](https://codeclimate.com/github/pniemczyk/shadow_form)
+
+
 Fat model with validation on all cases always causes problems in the future. So my solution is ShadowForm. Now you can have your original model without validation and use form when you need it.
 
 ## Installation
