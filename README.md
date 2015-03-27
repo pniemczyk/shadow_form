@@ -29,7 +29,7 @@ end
 ```
 And for example register form
 ```ruby
-class UserRegistrationForm < ShadowForm
+class UserRegistrationForm < ShadowForm::Core
   shadow_of User
   give_name 'RegisterForm` # optional
   validation do

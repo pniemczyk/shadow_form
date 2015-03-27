@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'active_model'
 
-describe ShadowForm do
+describe ShadowForm::Core do
 
   class PersonModel
     include ActiveModel::Model
