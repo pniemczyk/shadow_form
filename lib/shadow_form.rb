@@ -1,30 +1,39 @@
-require 'shadow_form/version'
-
 class ShadowForm
   class << self
-    def form_config
-      @form_config ||= {}
-    end
-
     def shadow_of(klass)
-      core_config[:shadow_of] = klass
+      form_config[:shadow_of] = klass
     end
 
     def validation(&block)
-      core_config[:validation] = block
+      form_config[:validation] = block
     end
 
-    def rename(new_name)
-      core_config[:new_name] = new_name
+    def give_name(new_name)
+      form_config[:new_name] = new_name
     end
 
-    def new
-      klass = core_config[:shadow_of] || fail('[ShadowForm] missing shadow class')
-      Class.new(klass).tap do |m_class|
-        new_name = core_config[:new_name] || klass.to_s
-        m_class.class_eval("def self.name; \"#{new_name}\"; end")
-        m_class.class_eval(&validation) if validation
-      end
+    def new(*args)
+      form_class.new(*args)
+    end
+
+    private
+
+    def form_class
+      @@form_class ||= (
+        klass = form_config[:shadow_of] || fail('[ShadowForm] missing shadow class')
+        Class.new(klass).tap do |m_class|
+          if form_config[:new_name]
+            Object.const_set(form_config[:new_name], m_class)
+          else
+            m_class.class_eval("def self.name; \"#{form_config[:shadow_of]}\"; end")
+          end
+          m_class.class_eval(&form_config[:validation])     if form_config[:validation]
+        end
+      )
+    end
+
+    def form_config
+      @form_config ||= {}
     end
   end
 end
